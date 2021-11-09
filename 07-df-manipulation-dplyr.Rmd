@@ -24,7 +24,7 @@ This syntax works, but it isn't very efficient and can quickly become tedious be
 
 ## The dplyr package
 
-This is where ```dplyr``` comes in. The ```dplyr``` package provides a number of very useful functions for manipulating data frames in a way that can reduce the repetition we noted above, as well as reduce the probability of making errors. It's syntax is very efficient, so it can also probably save you some typing and make your code more readable (to yourself and others), We'll cover 6 of the most common ```dplyr``` functions: They are ```select```, ```filter```, ```group_by```, ```summarize```, ```count``` and ```n```, and ```mutate```. We'll also discuss the pipe (``` %>% ```) which can be used to combine different dplyr functions and chain together your code in an efficient way. 
+This is where ```dplyr``` comes in. The ```dplyr``` package provides a number of very useful functions for manipulating data frames in a way that can reduce the repetition we noted above, as well as reduce the probability of making errors. Its syntax is very efficient, so it can also probably save you some typing and make your code more readable (to yourself and others), We'll cover 6 of the most common ```dplyr``` functions: They are ```select```, ```filter```, ```group_by```, ```summarize```, ```count``` and ```n```, and ```mutate```. We'll also discuss the pipe (``` %>% ```) which can be used to combine different dplyr functions and chain together your code in an efficient way. 
 
 Please go ahead and install dplyr if you haven't already using the following:
 
@@ -35,7 +35,7 @@ install.packages("dplyr")
 And, don't forget to load the library as well:
 
 ```{r, eval=FALSE}
-library("dplyr")
+library(dplyr)
 ```
 
 ## Using ```select()```
@@ -49,12 +49,12 @@ Let's see how this works by selecting the ```year```, ```country```, and ```gdpP
 year_country_gdp<-select(gapminder, year, country, gdpPercap)
 ```
 
-If you open up ```year_country_gdp```, you'dd see that it only contains the ```year```, ```country```, and ```gdpPercap``` variables.
+If you open up ```year_country_gdp```, you'll see that it only contains the ```year```, ```country```, and ```gdpPercap``` variables.
 
 In the example above, we used 'normal' grammar, but the strengths of ```dplyr``` are best showcased by combining several functions using pipes. Since the pipes grammar is unlike anything we've encountered in R so far, let's get a sense of how pipes work by repeating what we did above using pipes:
 
 ```{r}
-year_country_gdp<gapminder %>%
+year_country_gdp<-gapminder %>%
                   select(year, country, gdpPercap)
 ```
 
@@ -138,7 +138,8 @@ A very common operation is to count the number of observations for each group. T
 For example, let's say we want to check the number of countries included in the dataset for the year 2002. To do that, we can use the ```count``` function. This function takes the name of one or more columns that contain the groups we're interested in, and we can optionally sort the results in descending order by adding ```sort=TRUE```.
 
 ```{r}
-# Will generate a dataset that provides a count of how many observations are associated
+# Will generate a dataset that provides a count of
+#how many observations are associated
 # with each continent in the year 2002
 gapminder %>% 
   filter(year==2002) %>% 
@@ -148,13 +149,15 @@ gapminder %>%
 If we need to use the number of observations in calculations, the ```n()``` function is very useful. For example, let's say we want to get the standard error of the life expectancy for each continent:
 
 ```{r}
-# Code will generate a table containing information on the standard error of the life expectancy variable, for each continent
+# Code will generate a table containing information 
+# on the standard error of the life expectancy variable, 
+# for each continent
 gapminder %>% 
   group_by(continent) %>% 
   summarize(se_le=sd(lifeExp)/sqrt(n()))
 ```
 
-It's also possible to chain together many different summary operations. For example, let's say we want to calculate the minimum, maximum, mean, and standard error of each continent's per-country life-expectancy. 
+It's also possible to chain together many different summary operations. For example, let's say we want to calculate the minimum, maximum, mean, and standard error of each continent's life-expectancy. 
 
 ```{r}
 gapminder %>% 

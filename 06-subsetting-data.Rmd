@@ -9,8 +9,11 @@ Let's start with the workhorse of R: a simple numeric vector.
 ```{r}
 # We'll define a new vector x
 x<-c(5.4, 6.2, 7.1, 4.8, 7.5)
+# And then name the vector elements
+# using the names function
 names(x)<-c('a', 'b', 'c', 'd', 'e')
 ```
+
 And then, let's print out the vector:
 
 ```{r}
@@ -192,7 +195,7 @@ If we subset a single row, the result will be a data frame (since the elements a
 gapminder[3, ]
 ```
 
-But it's important to emphase that while a single row will be a data frame, a single column will be extracted as a vector (but you can change that if you'd like by setting ```drop=FALSE```)
+But it's important to emphase that while a single row will be a data frame, when you extract a single column through indexing it will be extracted as a vector (but you can change that if you'd like by setting ```drop=FALSE```)
 
 
 

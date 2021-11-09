@@ -10,11 +10,10 @@ nordic<-read.csv("nordic-data.csv")
 ```
 
 Note that I was able to read in the data using just ```nordic-data.csv``` as the argument to the ```read.csv``` function (without any additional information on the file path) since I'm already in the working directory that contains the data. 
-The ```read.table``` is used for reading in tabular data stored in a text file where the columns of data are separated by punctuation characters such as commas (as with CSV files).
 
-Tabs and commas are the most common punctuation characters used to separate or delimit data points in csv files. For convenience, R provides 2 other versions of ```read.table```. These are ```read.csv``` for files where the data are separated with commas and ```read.delim``` for files where the data are separated with tabs. Of these three functions, ```read.csv``` is the most commonly used, and is what we'll use in this tutorial. It's worth noting that if needed, it's possible to override the default punctuation marks for both ```read.csv``` and ```read.delim```. 
+The ```read.csv``` function is one of the most commonly used functions for reading in CSV files, which is often the file format that raw data comes in. If you're data is in a different format, chances are that there is a function to read that data in as well, and this can usually be found through a quick Google search. But ```read.csv``` is the workhorse, and that's what we'll use in this lesson. As with any other function, when you're working in R Studio, you can learn more about a function by typing a question mark followed by the name of the function. 
 
-We can begin exploring our dataset right away, pulling out columns by specifying them using the ```$``` operator:
+Now that we've read in and assigned our dataset to a variable, we can begin exploring our dataset right away. Let's pull out some of the dataset's columns by specifying those columns using the ```$``` operator:
 
 Let's start by pulling out the "country" column from the ```nordic``` dataset: 
 ```{r}
@@ -286,7 +285,7 @@ That makes sense; but what about the country column?
 str(nordic$country)
 ```
 
-This brings us to another important data structure, which is called a factor. Factors look like character data, but are used to represent categorical information. For example, let's make a vector of strings labeling nordic countries for all the countries in the study:
+This column is character at the moment, but categorical data is also often stored as a factor variable. Factors are another important data structure to understand. Factors look like character data, but have some additional properties that make them useful for representing categorical information. To get a sense of this, let's make a vector of strings labeling nordic countries for all the countries in the study:
 
 ```{r}
 nordic_countries<-c('Norway', 'Finland', 'Denmark', 'Iceland', 'Sweden')
@@ -312,7 +311,9 @@ For example,
 ```{r}
 # Let's start with a new character vector called mydata
 mydata<-c("case", "control", "control", "case")
-# Then let's convert this character vector into a factor, and specify the levels such that "control"
+# Then let's convert this character vector 
+# into a factor, and specify the levels 
+# such that "control"
 # is represented by 1, and "case" by 2
 factor_ordering_example<-factor(mydata, levels=c("control", "case"))
 ```
@@ -355,7 +356,7 @@ In our ```nordic``` example, we have an integer, a double, and a logical variabl
 nordic$country
 ```
 
-We can also extract through an alternative notation that specifies the column's index:
+We can also extract columns through an alternative notation that specifies the column's index:
 
 ```{r}
 nordic[,1]

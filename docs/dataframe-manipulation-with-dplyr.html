@@ -218,366 +218,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This syntax works, but it isn’t very efficient and can quickly become tedious because of how much repetition it involves. Repeating yourself will cost you time, both now and later. It could also potentially lead to some nasty bugs, so we want to cut down on repetition as much as possible.</p>
 <div id="the-dplyr-package" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> The dplyr package</h2>
-<p>This is where <code>dplyr</code> comes in. The <code>dplyr</code> package provides a number of very useful functions for manipulating data frames in a way that can reduce the repetition we noted above, as well as reduce the probability of making errors. It’s syntax is very efficient, so it can also probably save you some typing and make your code more readable (to yourself and others), We’ll cover 6 of the most common <code>dplyr</code> functions: They are <code>select</code>, <code>filter</code>, <code>group_by</code>, <code>summarize</code>, <code>count</code> and <code>n</code>, and <code>mutate</code>. We’ll also discuss the pipe (<code>%&gt;%</code>) which can be used to combine different dplyr functions and chain together your code in an efficient way.</p>
+<p>This is where <code>dplyr</code> comes in. The <code>dplyr</code> package provides a number of very useful functions for manipulating data frames in a way that can reduce the repetition we noted above, as well as reduce the probability of making errors. Its syntax is very efficient, so it can also probably save you some typing and make your code more readable (to yourself and others), We’ll cover 6 of the most common <code>dplyr</code> functions: They are <code>select</code>, <code>filter</code>, <code>group_by</code>, <code>summarize</code>, <code>count</code> and <code>n</code>, and <code>mutate</code>. We’ll also discuss the pipe (<code>%&gt;%</code>) which can be used to combine different dplyr functions and chain together your code in an efficient way.</p>
 <p>Please go ahead and install dplyr if you haven’t already using the following:</p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="dataframe-manipulation-with-dplyr.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
 <p>And, don’t forget to load the library as well:</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="dataframe-manipulation-with-dplyr.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="dataframe-manipulation-with-dplyr.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 </div>
 <div id="using-select" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Using <code>select()</code></h2>
 <p>Let’s start with the <code>select</code> function, which allows us to pluck out the columns we need and set aside the columns that we don’t. This can be useful when you’re dealing with a large dataset with a bunch of superfluous variables, and you want to create a more tractable dataset.</p>
 <p>Let’s see how this works by selecting the <code>year</code>, <code>country</code>, and <code>gdpPercap</code> variables from the gapminder dataset. We’ll assign this selection to a new object called <code>year_country_gdp</code></p>
 <div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="dataframe-manipulation-with-dplyr.html#cb262-1" aria-hidden="true" tabindex="-1"></a>year_country_gdp<span class="ot">&lt;-</span><span class="fu">select</span>(gapminder, year, country, gdpPercap)</span></code></pre></div>
-<p>If you open up <code>year_country_gdp</code>, you’dd see that it only contains the <code>year</code>, <code>country</code>, and <code>gdpPercap</code> variables.</p>
+<p>If you open up <code>year_country_gdp</code>, you’ll see that it only contains the <code>year</code>, <code>country</code>, and <code>gdpPercap</code> variables.</p>
 <p>In the example above, we used ‘normal’ grammar, but the strengths of <code>dplyr</code> are best showcased by combining several functions using pipes. Since the pipes grammar is unlike anything we’ve encountered in R so far, let’s get a sense of how pipes work by repeating what we did above using pipes:</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="dataframe-manipulation-with-dplyr.html#cb263-1" aria-hidden="true" tabindex="-1"></a>year_country_gdp<span class="sc">&lt;</span>gapminder <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="dataframe-manipulation-with-dplyr.html#cb263-1" aria-hidden="true" tabindex="-1"></a>year_country_gdp<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span></span>
 <span id="cb263-2"><a href="dataframe-manipulation-with-dplyr.html#cb263-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">select</span>(year, country, gdpPercap)</span></code></pre></div>
-<pre><code>##          year country gdpPercap
-##    [1,] FALSE   FALSE     FALSE
-##    [2,] FALSE   FALSE     FALSE
-##    [3,] FALSE   FALSE     FALSE
-##    [4,] FALSE   FALSE     FALSE
-##    [5,] FALSE   FALSE     FALSE
-##    [6,] FALSE   FALSE     FALSE
-##    [7,] FALSE   FALSE     FALSE
-##    [8,] FALSE   FALSE     FALSE
-##    [9,] FALSE   FALSE     FALSE
-##   [10,] FALSE   FALSE     FALSE
-##   [11,] FALSE   FALSE     FALSE
-##   [12,] FALSE   FALSE     FALSE
-##   [13,] FALSE   FALSE     FALSE
-##   [14,] FALSE   FALSE     FALSE
-##   [15,] FALSE   FALSE     FALSE
-##   [16,] FALSE   FALSE     FALSE
-##   [17,] FALSE   FALSE     FALSE
-##   [18,] FALSE   FALSE     FALSE
-##   [19,] FALSE   FALSE     FALSE
-##   [20,] FALSE   FALSE     FALSE
-##   [21,] FALSE   FALSE     FALSE
-##   [22,] FALSE   FALSE     FALSE
-##   [23,] FALSE   FALSE     FALSE
-##   [24,] FALSE   FALSE     FALSE
-##   [25,] FALSE   FALSE     FALSE
-##   [26,] FALSE   FALSE     FALSE
-##   [27,] FALSE   FALSE     FALSE
-##   [28,] FALSE   FALSE     FALSE
-##   [29,] FALSE   FALSE     FALSE
-##   [30,] FALSE   FALSE     FALSE
-##   [31,] FALSE   FALSE     FALSE
-##   [32,] FALSE   FALSE     FALSE
-##   [33,] FALSE   FALSE     FALSE
-##   [34,] FALSE   FALSE     FALSE
-##   [35,] FALSE   FALSE     FALSE
-##   [36,] FALSE   FALSE     FALSE
-##   [37,] FALSE   FALSE     FALSE
-##   [38,] FALSE   FALSE     FALSE
-##   [39,] FALSE   FALSE     FALSE
-##   [40,] FALSE   FALSE     FALSE
-##   [41,] FALSE   FALSE     FALSE
-##   [42,] FALSE   FALSE     FALSE
-##   [43,] FALSE   FALSE     FALSE
-##   [44,] FALSE   FALSE     FALSE
-##   [45,] FALSE   FALSE     FALSE
-##   [46,] FALSE   FALSE     FALSE
-##   [47,] FALSE   FALSE     FALSE
-##   [48,] FALSE   FALSE     FALSE
-##   [49,] FALSE   FALSE     FALSE
-##   [50,] FALSE   FALSE     FALSE
-##   [51,] FALSE   FALSE     FALSE
-##   [52,] FALSE   FALSE     FALSE
-##   [53,] FALSE   FALSE     FALSE
-##   [54,] FALSE   FALSE     FALSE
-##   [55,] FALSE   FALSE     FALSE
-##   [56,] FALSE   FALSE     FALSE
-##   [57,] FALSE   FALSE     FALSE
-##   [58,] FALSE   FALSE     FALSE
-##   [59,] FALSE   FALSE     FALSE
-##   [60,] FALSE   FALSE     FALSE
-##   [61,] FALSE   FALSE     FALSE
-##   [62,] FALSE   FALSE     FALSE
-##   [63,] FALSE   FALSE     FALSE
-##   [64,] FALSE   FALSE     FALSE
-##   [65,] FALSE   FALSE     FALSE
-##   [66,] FALSE   FALSE     FALSE
-##   [67,] FALSE   FALSE     FALSE
-##   [68,] FALSE   FALSE     FALSE
-##   [69,] FALSE   FALSE     FALSE
-##   [70,] FALSE   FALSE     FALSE
-##   [71,] FALSE   FALSE     FALSE
-##   [72,] FALSE   FALSE     FALSE
-##   [73,] FALSE   FALSE     FALSE
-##   [74,] FALSE   FALSE     FALSE
-##   [75,] FALSE   FALSE     FALSE
-##   [76,] FALSE   FALSE     FALSE
-##   [77,] FALSE   FALSE     FALSE
-##   [78,] FALSE   FALSE     FALSE
-##   [79,] FALSE   FALSE     FALSE
-##   [80,] FALSE   FALSE     FALSE
-##   [81,] FALSE   FALSE     FALSE
-##   [82,] FALSE   FALSE     FALSE
-##   [83,] FALSE   FALSE     FALSE
-##   [84,] FALSE   FALSE     FALSE
-##   [85,] FALSE   FALSE     FALSE
-##   [86,] FALSE   FALSE     FALSE
-##   [87,] FALSE   FALSE     FALSE
-##   [88,] FALSE   FALSE     FALSE
-##   [89,] FALSE   FALSE     FALSE
-##   [90,] FALSE   FALSE     FALSE
-##   [91,] FALSE   FALSE     FALSE
-##   [92,] FALSE   FALSE     FALSE
-##   [93,] FALSE   FALSE     FALSE
-##   [94,] FALSE   FALSE     FALSE
-##   [95,] FALSE   FALSE     FALSE
-##   [96,] FALSE   FALSE     FALSE
-##   [97,] FALSE   FALSE     FALSE
-##   [98,] FALSE   FALSE     FALSE
-##   [99,] FALSE   FALSE     FALSE
-##  [100,] FALSE   FALSE     FALSE
-##  [101,] FALSE   FALSE     FALSE
-##  [102,] FALSE   FALSE     FALSE
-##  [103,] FALSE   FALSE     FALSE
-##  [104,] FALSE   FALSE     FALSE
-##  [105,] FALSE   FALSE     FALSE
-##  [106,] FALSE   FALSE     FALSE
-##  [107,] FALSE   FALSE     FALSE
-##  [108,] FALSE   FALSE     FALSE
-##  [109,] FALSE   FALSE     FALSE
-##  [110,] FALSE   FALSE     FALSE
-##  [111,] FALSE   FALSE     FALSE
-##  [112,] FALSE   FALSE     FALSE
-##  [113,] FALSE   FALSE     FALSE
-##  [114,] FALSE   FALSE     FALSE
-##  [115,] FALSE   FALSE     FALSE
-##  [116,] FALSE   FALSE     FALSE
-##  [117,] FALSE   FALSE     FALSE
-##  [118,] FALSE   FALSE     FALSE
-##  [119,] FALSE   FALSE     FALSE
-##  [120,] FALSE   FALSE     FALSE
-##  [121,] FALSE   FALSE     FALSE
-##  [122,] FALSE   FALSE     FALSE
-##  [123,] FALSE   FALSE     FALSE
-##  [124,] FALSE   FALSE     FALSE
-##  [125,] FALSE   FALSE     FALSE
-##  [126,] FALSE   FALSE     FALSE
-##  [127,] FALSE   FALSE     FALSE
-##  [128,] FALSE   FALSE     FALSE
-##  [129,] FALSE   FALSE     FALSE
-##  [130,] FALSE   FALSE     FALSE
-##  [131,] FALSE   FALSE     FALSE
-##  [132,] FALSE   FALSE     FALSE
-##  [133,] FALSE   FALSE     FALSE
-##  [134,] FALSE   FALSE     FALSE
-##  [135,] FALSE   FALSE     FALSE
-##  [136,] FALSE   FALSE     FALSE
-##  [137,] FALSE   FALSE     FALSE
-##  [138,] FALSE   FALSE     FALSE
-##  [139,] FALSE   FALSE     FALSE
-##  [140,] FALSE   FALSE     FALSE
-##  [141,] FALSE   FALSE     FALSE
-##  [142,] FALSE   FALSE     FALSE
-##  [143,] FALSE   FALSE     FALSE
-##  [144,] FALSE   FALSE     FALSE
-##  [145,] FALSE   FALSE     FALSE
-##  [146,] FALSE   FALSE     FALSE
-##  [147,] FALSE   FALSE     FALSE
-##  [148,] FALSE   FALSE     FALSE
-##  [149,] FALSE   FALSE     FALSE
-##  [150,] FALSE   FALSE     FALSE
-##  [151,] FALSE   FALSE     FALSE
-##  [152,] FALSE   FALSE     FALSE
-##  [153,] FALSE   FALSE     FALSE
-##  [154,] FALSE   FALSE     FALSE
-##  [155,] FALSE   FALSE     FALSE
-##  [156,] FALSE   FALSE     FALSE
-##  [157,] FALSE   FALSE     FALSE
-##  [158,] FALSE   FALSE     FALSE
-##  [159,] FALSE   FALSE     FALSE
-##  [160,] FALSE   FALSE     FALSE
-##  [161,] FALSE   FALSE     FALSE
-##  [162,] FALSE   FALSE     FALSE
-##  [163,] FALSE   FALSE     FALSE
-##  [164,] FALSE   FALSE     FALSE
-##  [165,] FALSE   FALSE     FALSE
-##  [166,] FALSE   FALSE     FALSE
-##  [167,] FALSE   FALSE     FALSE
-##  [168,] FALSE   FALSE     FALSE
-##  [169,] FALSE   FALSE     FALSE
-##  [170,] FALSE   FALSE     FALSE
-##  [171,] FALSE   FALSE     FALSE
-##  [172,] FALSE   FALSE     FALSE
-##  [173,] FALSE   FALSE     FALSE
-##  [174,] FALSE   FALSE     FALSE
-##  [175,] FALSE   FALSE     FALSE
-##  [176,] FALSE   FALSE     FALSE
-##  [177,] FALSE   FALSE     FALSE
-##  [178,] FALSE   FALSE     FALSE
-##  [179,] FALSE   FALSE     FALSE
-##  [180,] FALSE   FALSE     FALSE
-##  [181,] FALSE   FALSE     FALSE
-##  [182,] FALSE   FALSE     FALSE
-##  [183,] FALSE   FALSE     FALSE
-##  [184,] FALSE   FALSE     FALSE
-##  [185,] FALSE   FALSE     FALSE
-##  [186,] FALSE   FALSE     FALSE
-##  [187,] FALSE   FALSE     FALSE
-##  [188,] FALSE   FALSE     FALSE
-##  [189,] FALSE   FALSE     FALSE
-##  [190,] FALSE   FALSE     FALSE
-##  [191,] FALSE   FALSE     FALSE
-##  [192,] FALSE   FALSE     FALSE
-##  [193,] FALSE   FALSE     FALSE
-##  [194,] FALSE   FALSE     FALSE
-##  [195,] FALSE   FALSE     FALSE
-##  [196,] FALSE   FALSE     FALSE
-##  [197,] FALSE   FALSE     FALSE
-##  [198,] FALSE   FALSE     FALSE
-##  [199,] FALSE   FALSE     FALSE
-##  [200,] FALSE   FALSE     FALSE
-##  [201,] FALSE   FALSE     FALSE
-##  [202,] FALSE   FALSE     FALSE
-##  [203,] FALSE   FALSE     FALSE
-##  [204,] FALSE   FALSE     FALSE
-##  [205,] FALSE   FALSE     FALSE
-##  [206,] FALSE   FALSE     FALSE
-##  [207,] FALSE   FALSE     FALSE
-##  [208,] FALSE   FALSE     FALSE
-##  [209,] FALSE   FALSE     FALSE
-##  [210,] FALSE   FALSE     FALSE
-##  [211,] FALSE   FALSE     FALSE
-##  [212,] FALSE   FALSE     FALSE
-##  [213,] FALSE   FALSE     FALSE
-##  [214,] FALSE   FALSE     FALSE
-##  [215,] FALSE   FALSE     FALSE
-##  [216,] FALSE   FALSE     FALSE
-##  [217,] FALSE   FALSE     FALSE
-##  [218,] FALSE   FALSE     FALSE
-##  [219,] FALSE   FALSE     FALSE
-##  [220,] FALSE   FALSE     FALSE
-##  [221,] FALSE   FALSE     FALSE
-##  [222,] FALSE   FALSE     FALSE
-##  [223,] FALSE   FALSE     FALSE
-##  [224,] FALSE   FALSE     FALSE
-##  [225,] FALSE   FALSE     FALSE
-##  [226,] FALSE   FALSE     FALSE
-##  [227,] FALSE   FALSE     FALSE
-##  [228,] FALSE   FALSE     FALSE
-##  [229,] FALSE   FALSE     FALSE
-##  [230,] FALSE   FALSE     FALSE
-##  [231,] FALSE   FALSE     FALSE
-##  [232,] FALSE   FALSE     FALSE
-##  [233,] FALSE   FALSE     FALSE
-##  [234,] FALSE   FALSE     FALSE
-##  [235,] FALSE   FALSE     FALSE
-##  [236,] FALSE   FALSE     FALSE
-##  [237,] FALSE   FALSE     FALSE
-##  [238,] FALSE   FALSE     FALSE
-##  [239,] FALSE   FALSE     FALSE
-##  [240,] FALSE   FALSE     FALSE
-##  [241,] FALSE   FALSE     FALSE
-##  [242,] FALSE   FALSE     FALSE
-##  [243,] FALSE   FALSE     FALSE
-##  [244,] FALSE   FALSE     FALSE
-##  [245,] FALSE   FALSE     FALSE
-##  [246,] FALSE   FALSE     FALSE
-##  [247,] FALSE   FALSE     FALSE
-##  [248,] FALSE   FALSE     FALSE
-##  [249,] FALSE   FALSE     FALSE
-##  [250,] FALSE   FALSE     FALSE
-##  [251,] FALSE   FALSE     FALSE
-##  [252,] FALSE   FALSE     FALSE
-##  [253,] FALSE   FALSE     FALSE
-##  [254,] FALSE   FALSE     FALSE
-##  [255,] FALSE   FALSE     FALSE
-##  [256,] FALSE   FALSE     FALSE
-##  [257,] FALSE   FALSE     FALSE
-##  [258,] FALSE   FALSE     FALSE
-##  [259,] FALSE   FALSE     FALSE
-##  [260,] FALSE   FALSE     FALSE
-##  [261,] FALSE   FALSE     FALSE
-##  [262,] FALSE   FALSE     FALSE
-##  [263,] FALSE   FALSE     FALSE
-##  [264,] FALSE   FALSE     FALSE
-##  [265,] FALSE   FALSE     FALSE
-##  [266,] FALSE   FALSE     FALSE
-##  [267,] FALSE   FALSE     FALSE
-##  [268,] FALSE   FALSE     FALSE
-##  [269,] FALSE   FALSE     FALSE
-##  [270,] FALSE   FALSE     FALSE
-##  [271,] FALSE   FALSE     FALSE
-##  [272,] FALSE   FALSE     FALSE
-##  [273,] FALSE   FALSE     FALSE
-##  [274,] FALSE   FALSE     FALSE
-##  [275,] FALSE   FALSE     FALSE
-##  [276,] FALSE   FALSE     FALSE
-##  [277,] FALSE   FALSE     FALSE
-##  [278,] FALSE   FALSE     FALSE
-##  [279,] FALSE   FALSE     FALSE
-##  [280,] FALSE   FALSE     FALSE
-##  [281,] FALSE   FALSE     FALSE
-##  [282,] FALSE   FALSE     FALSE
-##  [283,] FALSE   FALSE     FALSE
-##  [284,] FALSE   FALSE     FALSE
-##  [285,] FALSE   FALSE     FALSE
-##  [286,] FALSE   FALSE     FALSE
-##  [287,] FALSE   FALSE     FALSE
-##  [288,] FALSE   FALSE     FALSE
-##  [289,] FALSE   FALSE     FALSE
-##  [290,] FALSE   FALSE     FALSE
-##  [291,] FALSE   FALSE     FALSE
-##  [292,] FALSE   FALSE     FALSE
-##  [293,] FALSE   FALSE     FALSE
-##  [294,] FALSE   FALSE     FALSE
-##  [295,] FALSE   FALSE     FALSE
-##  [296,] FALSE   FALSE     FALSE
-##  [297,] FALSE   FALSE     FALSE
-##  [298,] FALSE   FALSE     FALSE
-##  [299,] FALSE   FALSE     FALSE
-##  [300,] FALSE   FALSE     FALSE
-##  [301,] FALSE   FALSE     FALSE
-##  [302,] FALSE   FALSE     FALSE
-##  [303,] FALSE   FALSE     FALSE
-##  [304,] FALSE   FALSE     FALSE
-##  [305,] FALSE   FALSE     FALSE
-##  [306,] FALSE   FALSE     FALSE
-##  [307,] FALSE   FALSE     FALSE
-##  [308,] FALSE   FALSE     FALSE
-##  [309,] FALSE   FALSE     FALSE
-##  [310,] FALSE   FALSE     FALSE
-##  [311,] FALSE   FALSE     FALSE
-##  [312,] FALSE   FALSE     FALSE
-##  [313,] FALSE   FALSE     FALSE
-##  [314,] FALSE   FALSE     FALSE
-##  [315,] FALSE   FALSE     FALSE
-##  [316,] FALSE   FALSE     FALSE
-##  [317,] FALSE   FALSE     FALSE
-##  [318,] FALSE   FALSE     FALSE
-##  [319,] FALSE   FALSE     FALSE
-##  [320,] FALSE   FALSE     FALSE
-##  [321,] FALSE   FALSE     FALSE
-##  [322,] FALSE   FALSE     FALSE
-##  [323,] FALSE   FALSE     FALSE
-##  [324,] FALSE   FALSE     FALSE
-##  [325,] FALSE   FALSE     FALSE
-##  [326,] FALSE   FALSE     FALSE
-##  [327,] FALSE   FALSE     FALSE
-##  [328,] FALSE   FALSE     FALSE
-##  [329,] FALSE   FALSE     FALSE
-##  [330,] FALSE   FALSE     FALSE
-##  [331,] FALSE   FALSE     FALSE
-##  [332,] FALSE   FALSE     FALSE
-##  [333,] FALSE   FALSE     FALSE
-##  [ reached getOption(&quot;max.print&quot;) -- omitted 3075 rows ]</code></pre>
 <p>Let’s walk through that syntax step by step. First, we summon the <code>gapminder</code> data frame and pass it on, using the pipe symbol (<code>%&gt;%</code>), to the next step, which is the <code>select()</code> function. In this case we don’t specify which data object we use in the <code>select</code> function since this information has already been passed to the <code>select</code> function from the previous pipe.</p>
 </div>
 <div id="using-filter" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Using <code>filter</code></h2>
 <p>Let’s say we want to create a dataset that only has the <code>year</code>, <code>country</code>, and <code>gdpPercap</code> variables, and also restricts its observations to only European countries. So, instead of just limiting the columns in the dataset, we also want to limit the rows based on a condition. We can do this by combining <code>select</code> and <code>filter</code> using pipes:</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="dataframe-manipulation-with-dplyr.html#cb265-1" aria-hidden="true" tabindex="-1"></a>year_country_gdp_euro<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb265-2"><a href="dataframe-manipulation-with-dplyr.html#cb265-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">filter</span>(continent<span class="sc">==</span><span class="st">&quot;Europe&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb265-3"><a href="dataframe-manipulation-with-dplyr.html#cb265-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">select</span>(year, country, gdpPercap)</span>
-<span id="cb265-4"><a href="dataframe-manipulation-with-dplyr.html#cb265-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb265-5"><a href="dataframe-manipulation-with-dplyr.html#cb265-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(year_country_gdp_euro)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="dataframe-manipulation-with-dplyr.html#cb264-1" aria-hidden="true" tabindex="-1"></a>year_country_gdp_euro<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb264-2"><a href="dataframe-manipulation-with-dplyr.html#cb264-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">filter</span>(continent<span class="sc">==</span><span class="st">&quot;Europe&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb264-3"><a href="dataframe-manipulation-with-dplyr.html#cb264-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">select</span>(year, country, gdpPercap)</span>
+<span id="cb264-4"><a href="dataframe-manipulation-with-dplyr.html#cb264-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb264-5"><a href="dataframe-manipulation-with-dplyr.html#cb264-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(year_country_gdp_euro)</span></code></pre></div>
 <pre><code>##   year country gdpPercap
 ## 1 1952 Albania  1601.056
 ## 2 1957 Albania  1942.284
@@ -592,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We mentioned earlier that we want to reduce the error-prone repetitiveness of base R, but up to now we haven’t done that since we’d have to repeat the code above for each continent.</p>
 <p>But instead of using <code>filter</code> and setting <code>continent=="Europe"</code>we could use <code>group_by()</code>, which will essentially use every unique criteria you could have used in <code>filter</code>.</p>
 <p>Let’s see what the <code>group_by()</code> function does to the structure of a dataset. We’ll start by examining the structure of <code>gapminder</code>:</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="dataframe-manipulation-with-dplyr.html#cb267-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(gapminder)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="dataframe-manipulation-with-dplyr.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(gapminder)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    3408 obs. of  7 variables:
 ##  $ country      : chr  &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; ...
 ##  $ year         : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
@@ -602,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ gdpPercap    : num  779 821 853 836 740 ...
 ##  $ below_average: logi  TRUE TRUE TRUE TRUE TRUE TRUE ...</code></pre>
 <p>Now let’s see the structure of the <code>gapminder</code> dataset once it’s been grouped by the continent variable</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="dataframe-manipulation-with-dplyr.html#cb269-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> <span class="fu">str</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="dataframe-manipulation-with-dplyr.html#cb268-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> <span class="fu">str</span>()</span></code></pre></div>
 <pre><code>## grouped_df [3,408 × 7] (S3: grouped_df/tbl_df/tbl/data.frame)
 ##  $ country      : chr [1:3408] &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; ...
 ##  $ year         : int [1:3408] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
@@ -627,11 +292,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.5</span> Using <code>summarize</code></h2>
 <p>The example above may have seemed on the mundane side, but we can see the power of <code>group_by</code> when we use it in conjunction with the <code>summarize</code> function. This allows us to create new variables by using functions that repeat for each of the continent specific data frames. In other words, we can use the <code>group_by</code> function to split our original dataframe into multiple pieces, and then run functions on those groups.</p>
 <p>This will make more sense in the context of an example. Let’s say we want to generate a table that contains gapminder’s continent groups in one column, and the continent-level mean of gdp per capita in the other column. We can generate such a table with the following:</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="dataframe-manipulation-with-dplyr.html#cb271-1" aria-hidden="true" tabindex="-1"></a>gdp_by_continents<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb271-2"><a href="dataframe-manipulation-with-dplyr.html#cb271-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
-<span id="cb271-3"><a href="dataframe-manipulation-with-dplyr.html#cb271-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap))</span>
-<span id="cb271-4"><a href="dataframe-manipulation-with-dplyr.html#cb271-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb271-5"><a href="dataframe-manipulation-with-dplyr.html#cb271-5" aria-hidden="true" tabindex="-1"></a>gdp_by_continents</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="dataframe-manipulation-with-dplyr.html#cb270-1" aria-hidden="true" tabindex="-1"></a>gdp_by_continents<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb270-2"><a href="dataframe-manipulation-with-dplyr.html#cb270-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
+<span id="cb270-3"><a href="dataframe-manipulation-with-dplyr.html#cb270-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap))</span>
+<span id="cb270-4"><a href="dataframe-manipulation-with-dplyr.html#cb270-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-5"><a href="dataframe-manipulation-with-dplyr.html#cb270-5" aria-hidden="true" tabindex="-1"></a>gdp_by_continents</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##   continent mean_gdpPercap
 ## * &lt;fct&gt;              &lt;dbl&gt;
@@ -642,17 +307,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 Oceania           18622.</code></pre>
 <p>In the code above, we took the original gapminder data, grouped it by the continent variable, calculated the continent-level mean and stored it in a new column called mean_gdpPercap, and then assigned this new dataset of continent-level mean GDP per capita to a new object called <code>gdp_by_continents.</code></p>
 <p>We can also use the same <code>group_by()</code> function to group by multiple variables. For example, let’s group by both <code>year</code> and <code>continent</code>, and then generate a table that contains the mean of continent-level gdpPercap for every distinct year:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="dataframe-manipulation-with-dplyr.html#cb273-1" aria-hidden="true" tabindex="-1"></a>gdp_bycontinents_byyear<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb273-2"><a href="dataframe-manipulation-with-dplyr.html#cb273-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span> </span>
-<span id="cb273-3"><a href="dataframe-manipulation-with-dplyr.html#cb273-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap))</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="dataframe-manipulation-with-dplyr.html#cb272-1" aria-hidden="true" tabindex="-1"></a>gdp_bycontinents_byyear<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb272-2"><a href="dataframe-manipulation-with-dplyr.html#cb272-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span> </span>
+<span id="cb272-3"><a href="dataframe-manipulation-with-dplyr.html#cb272-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap))</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;continent&#39;. You can override using the `.groups` argument.</code></pre>
 <p>Things become even more powerful when you realize that you’re not limited to definining only 1 new variable in summarize. Let’s define some additional variables to see how this works. We’ll define variables for the standard deviation of gdp per capital, as well as the mean and standard deviation of the population, in addition to the mean of gdp per capita we’ve already calculated. The code will look something like this:</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="dataframe-manipulation-with-dplyr.html#cb275-1" aria-hidden="true" tabindex="-1"></a>gdp_pop_bycontinents_byyear<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb275-2"><a href="dataframe-manipulation-with-dplyr.html#cb275-2" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span> </span>
-<span id="cb275-3"><a href="dataframe-manipulation-with-dplyr.html#cb275-3" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap),</span>
-<span id="cb275-4"><a href="dataframe-manipulation-with-dplyr.html#cb275-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">sd_gdpPercap=</span><span class="fu">sd</span>(gdpPercap),</span>
-<span id="cb275-5"><a href="dataframe-manipulation-with-dplyr.html#cb275-5" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">mean_pop=</span><span class="fu">mean</span>(pop),</span>
-<span id="cb275-6"><a href="dataframe-manipulation-with-dplyr.html#cb275-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">sd_pop=</span><span class="fu">sd</span>(pop))</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="dataframe-manipulation-with-dplyr.html#cb274-1" aria-hidden="true" tabindex="-1"></a>gdp_pop_bycontinents_byyear<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb274-2"><a href="dataframe-manipulation-with-dplyr.html#cb274-2" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span> </span>
+<span id="cb274-3"><a href="dataframe-manipulation-with-dplyr.html#cb274-3" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap),</span>
+<span id="cb274-4"><a href="dataframe-manipulation-with-dplyr.html#cb274-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">sd_gdpPercap=</span><span class="fu">sd</span>(gdpPercap),</span>
+<span id="cb274-5"><a href="dataframe-manipulation-with-dplyr.html#cb274-5" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">mean_pop=</span><span class="fu">mean</span>(pop),</span>
+<span id="cb274-6"><a href="dataframe-manipulation-with-dplyr.html#cb274-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">sd_pop=</span><span class="fu">sd</span>(pop))</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;continent&#39;. You can override using the `.groups` argument.</code></pre>
 <p>This object will now contain a continent-year dataset with columns containing information on continent-level mean GDP, standard deviation of GDP, the continent-level mean of population, and the continent level standard deviation of population.</p>
 </div>
@@ -660,11 +325,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.6</span> <code>count()</code> and <code>n()</code></h2>
 <p>A very common operation is to count the number of observations for each group. The <code>dplyr</code> package comes with two related functions that help with this. They are the <code>count()</code> function and the <code>n()</code> function.</p>
 <p>For example, let’s say we want to check the number of countries included in the dataset for the year 2002. To do that, we can use the <code>count</code> function. This function takes the name of one or more columns that contain the groups we’re interested in, and we can optionally sort the results in descending order by adding <code>sort=TRUE</code>.</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="dataframe-manipulation-with-dplyr.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Will generate a dataset that provides a count of how many observations are associated</span></span>
-<span id="cb277-2"><a href="dataframe-manipulation-with-dplyr.html#cb277-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with each continent in the year 2002</span></span>
-<span id="cb277-3"><a href="dataframe-manipulation-with-dplyr.html#cb277-3" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb277-4"><a href="dataframe-manipulation-with-dplyr.html#cb277-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2002</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb277-5"><a href="dataframe-manipulation-with-dplyr.html#cb277-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(continent, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="dataframe-manipulation-with-dplyr.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Will generate a dataset that provides a count of how many observations are associated</span></span>
+<span id="cb276-2"><a href="dataframe-manipulation-with-dplyr.html#cb276-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with each continent in the year 2002</span></span>
+<span id="cb276-3"><a href="dataframe-manipulation-with-dplyr.html#cb276-3" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb276-4"><a href="dataframe-manipulation-with-dplyr.html#cb276-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2002</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb276-5"><a href="dataframe-manipulation-with-dplyr.html#cb276-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(continent, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##   continent   n
 ## 1    Africa 104
 ## 2      Asia  66
@@ -672,10 +337,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4  Americas  50
 ## 5   Oceania   4</code></pre>
 <p>If we need to use the number of observations in calculations, the <code>n()</code> function is very useful. For example, let’s say we want to get the standard error of the life expectancy for each continent:</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="dataframe-manipulation-with-dplyr.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code will generate a table containing information on the standard error of the life expectancy variable, for each continent</span></span>
-<span id="cb279-2"><a href="dataframe-manipulation-with-dplyr.html#cb279-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb279-3"><a href="dataframe-manipulation-with-dplyr.html#cb279-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
-<span id="cb279-4"><a href="dataframe-manipulation-with-dplyr.html#cb279-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">se_le=</span><span class="fu">sd</span>(lifeExp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()))</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="dataframe-manipulation-with-dplyr.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code will generate a table containing information on the standard error of the life expectancy variable, for each continent</span></span>
+<span id="cb278-2"><a href="dataframe-manipulation-with-dplyr.html#cb278-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb278-3"><a href="dataframe-manipulation-with-dplyr.html#cb278-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
+<span id="cb278-4"><a href="dataframe-manipulation-with-dplyr.html#cb278-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">se_le=</span><span class="fu">sd</span>(lifeExp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()))</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##   continent se_le
 ## * &lt;fct&gt;     &lt;dbl&gt;
@@ -685,13 +350,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Europe    0.202
 ## 5 Oceania   0.542</code></pre>
 <p>It’s also possible to chain together many different summary operations. For example, let’s say we want to calculate the minimum, maximum, mean, and standard error of each continent’s per-country life-expectancy.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="dataframe-manipulation-with-dplyr.html#cb281-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb281-2"><a href="dataframe-manipulation-with-dplyr.html#cb281-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
-<span id="cb281-3"><a href="dataframe-manipulation-with-dplyr.html#cb281-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb281-4"><a href="dataframe-manipulation-with-dplyr.html#cb281-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_le=</span><span class="fu">mean</span>(lifeExp),</span>
-<span id="cb281-5"><a href="dataframe-manipulation-with-dplyr.html#cb281-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_le=</span><span class="fu">min</span>(lifeExp),</span>
-<span id="cb281-6"><a href="dataframe-manipulation-with-dplyr.html#cb281-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_le=</span><span class="fu">max</span>(lifeExp),</span>
-<span id="cb281-7"><a href="dataframe-manipulation-with-dplyr.html#cb281-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_le=</span><span class="fu">sd</span>(lifeExp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>())) </span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="dataframe-manipulation-with-dplyr.html#cb280-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb280-2"><a href="dataframe-manipulation-with-dplyr.html#cb280-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
+<span id="cb280-3"><a href="dataframe-manipulation-with-dplyr.html#cb280-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb280-4"><a href="dataframe-manipulation-with-dplyr.html#cb280-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_le=</span><span class="fu">mean</span>(lifeExp),</span>
+<span id="cb280-5"><a href="dataframe-manipulation-with-dplyr.html#cb280-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_le=</span><span class="fu">min</span>(lifeExp),</span>
+<span id="cb280-6"><a href="dataframe-manipulation-with-dplyr.html#cb280-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_le=</span><span class="fu">max</span>(lifeExp),</span>
+<span id="cb280-7"><a href="dataframe-manipulation-with-dplyr.html#cb280-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_le=</span><span class="fu">sd</span>(lifeExp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>())) </span></code></pre></div>
 <pre><code>## # A tibble: 5 x 5
 ##   continent mean_le min_le max_le se_le
 ## * &lt;fct&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -704,19 +369,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="using-mutate" class="section level2" number="7.7">
 <h2><span class="header-section-number">7.7</span> Using <code>mutate()</code></h2>
 <p>We’ll close out this section with a discussion of the <code>mutate()</code> function, which allows us to define new variables based on existing ones. <code>Mutate</code> allows us to create new variables prior to (or even after) summarizing information in the way that we just learned.</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="dataframe-manipulation-with-dplyr.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes gapminder, uses mutate to generate a variable that </span></span>
-<span id="cb283-2"><a href="dataframe-manipulation-with-dplyr.html#cb283-2" aria-hidden="true" tabindex="-1"></a><span class="co"># contains GDP in units of billions, and then groups data</span></span>
-<span id="cb283-3"><a href="dataframe-manipulation-with-dplyr.html#cb283-3" aria-hidden="true" tabindex="-1"></a><span class="co"># by continent and year, and then creates a bunch of summary</span></span>
-<span id="cb283-4"><a href="dataframe-manipulation-with-dplyr.html#cb283-4" aria-hidden="true" tabindex="-1"></a><span class="co"># variables some of which use the variable we defined using mutate.</span></span>
-<span id="cb283-5"><a href="dataframe-manipulation-with-dplyr.html#cb283-5" aria-hidden="true" tabindex="-1"></a>gdp_pop_bycontinents_byear<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb283-6"><a href="dataframe-manipulation-with-dplyr.html#cb283-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_billion=</span>gdpPercap<span class="sc">*</span>pop<span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb283-7"><a href="dataframe-manipulation-with-dplyr.html#cb283-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span> </span>
-<span id="cb283-8"><a href="dataframe-manipulation-with-dplyr.html#cb283-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap),</span>
-<span id="cb283-9"><a href="dataframe-manipulation-with-dplyr.html#cb283-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_gdpPercap=</span><span class="fu">sd</span>(gdpPercap),</span>
-<span id="cb283-10"><a href="dataframe-manipulation-with-dplyr.html#cb283-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_pop=</span><span class="fu">mean</span>(pop),</span>
-<span id="cb283-11"><a href="dataframe-manipulation-with-dplyr.html#cb283-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_pop=</span><span class="fu">sd</span>(pop),</span>
-<span id="cb283-12"><a href="dataframe-manipulation-with-dplyr.html#cb283-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_gdp_billion=</span><span class="fu">mean</span>(gdp_billion),</span>
-<span id="cb283-13"><a href="dataframe-manipulation-with-dplyr.html#cb283-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_gdp_billion=</span><span class="fu">sd</span>(gdp_billion))</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="dataframe-manipulation-with-dplyr.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes gapminder, uses mutate to generate a variable that </span></span>
+<span id="cb282-2"><a href="dataframe-manipulation-with-dplyr.html#cb282-2" aria-hidden="true" tabindex="-1"></a><span class="co"># contains GDP in units of billions, and then groups data</span></span>
+<span id="cb282-3"><a href="dataframe-manipulation-with-dplyr.html#cb282-3" aria-hidden="true" tabindex="-1"></a><span class="co"># by continent and year, and then creates a bunch of summary</span></span>
+<span id="cb282-4"><a href="dataframe-manipulation-with-dplyr.html#cb282-4" aria-hidden="true" tabindex="-1"></a><span class="co"># variables some of which use the variable we defined using mutate.</span></span>
+<span id="cb282-5"><a href="dataframe-manipulation-with-dplyr.html#cb282-5" aria-hidden="true" tabindex="-1"></a>gdp_pop_bycontinents_byear<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb282-6"><a href="dataframe-manipulation-with-dplyr.html#cb282-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_billion=</span>gdpPercap<span class="sc">*</span>pop<span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb282-7"><a href="dataframe-manipulation-with-dplyr.html#cb282-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span> </span>
+<span id="cb282-8"><a href="dataframe-manipulation-with-dplyr.html#cb282-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap),</span>
+<span id="cb282-9"><a href="dataframe-manipulation-with-dplyr.html#cb282-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_gdpPercap=</span><span class="fu">sd</span>(gdpPercap),</span>
+<span id="cb282-10"><a href="dataframe-manipulation-with-dplyr.html#cb282-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_pop=</span><span class="fu">mean</span>(pop),</span>
+<span id="cb282-11"><a href="dataframe-manipulation-with-dplyr.html#cb282-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_pop=</span><span class="fu">sd</span>(pop),</span>
+<span id="cb282-12"><a href="dataframe-manipulation-with-dplyr.html#cb282-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_gdp_billion=</span><span class="fu">mean</span>(gdp_billion),</span>
+<span id="cb282-13"><a href="dataframe-manipulation-with-dplyr.html#cb282-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_gdp_billion=</span><span class="fu">sd</span>(gdp_billion))</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;continent&#39;. You can override using the `.groups` argument.</code></pre>
 <p>Summary</p>
 <p>Use the <code>dplyr</code> package to manipulate dataframes.

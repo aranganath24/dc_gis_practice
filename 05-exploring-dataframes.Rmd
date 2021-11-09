@@ -73,7 +73,7 @@ We'll also likely want to know the titles of all the columns. We can use the ```
 colnames(gapminder)
 ```
 
-At this point, it's it’s important to ask ourselves if the structure R is reporting matches our intuition or expectations; do the basic data types reported for each column make sense? If not, we need to sort any problems out now before they turn into bad surprises down the road, using what we’ve learned about how R interprets data, and the importance of strict consistency in how we record our data.
+At this point in a data analysis workflow, it's it’s important to ask ourselves if the structure R is reporting matches our intuition or expectations; do the basic data types reported for each column make sense? If not, we need to sort any problems out now before they turn into bad surprises down the road. To diagnose and sort out potential problems, we can use what we’ve learned about how R interprets data, and the importance of strict consistency in how we record our data.
 
 Once we’re happy that the data types and structures seem reasonable, it’s time to start digging into our data proper. Check out the first few lines:
 
@@ -128,7 +128,7 @@ And the length of the ```below_average``` vector:
 length(below_average)
 ```
 
-For the binding to work, we need to have the number of rows in ```gapminder``` equal to the length of ```below_average``` or we need the number of rows in gapminder to be a multiple of the length of ```below_average```. Because ```gapminder``` does not have five rows or a multiple of five rows, the column binding failed. 
+For the binding to work, we need to have the number of rows in ```gapminder``` equal to the length of the ```below_average``` vector or we need the number of rows in gapminder to be a multiple of the length of the ```below_average``` vector. Because ```gapminder``` does not have five rows or a multiple of five rows, the column binding failed. 
 
 Let's try again, this time with a ```below_average``` vector length of three:
 
@@ -167,7 +167,7 @@ You'll notice that this time, the binding still works, but R gives us a warning.
 
 The thing to note here is that in factor, each different value represents what is called a level. In our case, the factor "continent" has 5 levels: "Africa", "Americas", "Asia", "Europe", and "Oceania." R will only accept values that match one of the levels. If you add a new row that has a different value for continent (such as Nordic in our case), it will become NA. 
 
-More specifically, the warning was telling us that we unsuccessfully added “Nordic” to our continent factor, but 2016 (a numeric), 5000000 (a numeric), 80.3 (a numeric), 49400.0 (a numeric) and FALSE (a logical) were successfully added to country, year, pop, lifeExp, gdpPercap and below_average respectively, since those variables are not factors. ‘Norway’ was also successfully added since it corresponds to an existing level. 
+More specifically, the warning was telling us that we unsuccessfully added “Nordic” to our continent factor, but 2016 (a numeric), 5000000 (a numeric), 80.3 (a numeric), 49400.0 (a numeric) and FALSE (a logical) were successfully added to country, year, pop, lifeExp, gdpPercap and below_average respectively, since those variables are not factors. 
 
 To successfully add a gapminder row with a “Nordic” continent, we can add “Nordic” as a level of the factor. 
 
@@ -176,7 +176,8 @@ To successfully add a gapminder row with a “Nordic” continent, we can add �
 levels(gapminder$continent)<-c(levels(gapminder$continent), "Nordic")
 # Confirm it's been added
 levels(gapminder$continent)
-# Add the row to gapminder
+# Add the row to gapminder by defining
+# list on the fly
 gapminder_norway<-rbind(gapminder,
                     list('Norway', 2016, 5000000, 'Nordic', 80.3,49400.0, FALSE))
 ```
@@ -192,6 +193,8 @@ To successfully add the row, our options were to either work with the character 
 ## Appending to a data frame 
 
 The key to remember when adding data to a data frame is that columns are vectors and rows are lists. We can also glue two data frames together with ```rbind```:
+
+Let's say we want to stack gapminder on top of itself, or in other words, append another equivalent gapminder dataset to the one that already exists. 
 
 ```{r}
 gapminder<-rbind(gapminder, gapminder)

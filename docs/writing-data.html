@@ -210,14 +210,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You can save a plot from R Studio using the <code>Export</code> button in the <code>Plot</code> window. This will give you the option of saving the plot as a pdf, png, or jpg file or another image format of your choosing.</p>
 <p>Sometimes, you may want to save plots without creating them in the ‘Plot’ window first/ Maybe you want to make a PDF document with multiple pages, each one with a different plot. Or, maybe you’re looping through multiple subsets of a file, plotting data from each subset, and you want to save each plot. In cases like these, where you want to save plots programmatically, and need a more flexible approach, you can use something called a pdf device. The <code>pdf()</code> function creates a new pdf device, which allows you to control the size and resolution through arguments that are passed to it.</p>
 <p>Let’s see how this works:</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="writing-data.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We&#39;ll start by setting up the pdf device</span></span>
-<span id="cb292-2"><a href="writing-data.html#cb292-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;Distribution-of-gdpPercap.pdf&quot;</span>, <span class="at">width=</span><span class="dv">12</span>, <span class="at">height=</span><span class="dv">4</span>)</span>
-<span id="cb292-3"><a href="writing-data.html#cb292-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, write the code to generate the plot</span></span>
-<span id="cb292-4"><a href="writing-data.html#cb292-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gapminder, <span class="fu">aes</span>(<span class="at">x=</span>gdpPercap))<span class="sc">+</span></span>
-<span id="cb292-5"><a href="writing-data.html#cb292-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="writing-data.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We&#39;ll start by setting up the pdf device</span></span>
+<span id="cb291-2"><a href="writing-data.html#cb291-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;Distribution-of-gdpPercap.pdf&quot;</span>, <span class="at">width=</span><span class="dv">12</span>, <span class="at">height=</span><span class="dv">4</span>)</span>
+<span id="cb291-3"><a href="writing-data.html#cb291-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, write the code to generate the plot</span></span>
+<span id="cb291-4"><a href="writing-data.html#cb291-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gapminder, <span class="fu">aes</span>(<span class="at">x=</span>gdpPercap))<span class="sc">+</span></span>
+<span id="cb291-5"><a href="writing-data.html#cb291-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="writing-data.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, remember to turn off the pdf device</span></span>
-<span id="cb294-2"><a href="writing-data.html#cb294-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="writing-data.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, remember to turn off the pdf device</span></span>
+<span id="cb293-2"><a href="writing-data.html#cb293-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## quartz_off_screen 
 ##                 2</code></pre>
 <p>You can follow a similar process for different file formats like jpeg, png and so on. Just make sure to change the file extension in your code.</p>
@@ -227,16 +227,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>At some point, you’ll also want to write out data from R.</p>
 <p>We can use the <code>write.csv</code> function to write out csv files to disk. The <code>write.csv</code> function is very similar to <code>read.csv</code> from before.</p>
 <p>Let’s create a subset of the gapminder data for Australia, and then write this data out to disk. By default, the file will write to your working directory.</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="writing-data.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create subset and assign to &quot;aust_subset&quot; object</span></span>
-<span id="cb296-2"><a href="writing-data.html#cb296-2" aria-hidden="true" tabindex="-1"></a>aust_subset<span class="ot">&lt;-</span><span class="fu">filter</span>(gapminder, country<span class="sc">==</span><span class="st">&quot;Australia&quot;</span>)</span>
-<span id="cb296-3"><a href="writing-data.html#cb296-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(aust_subset, <span class="at">file=</span><span class="st">&quot;cleaned-data/gapminder-aus.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="writing-data.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create subset and assign to &quot;aust_subset&quot; object</span></span>
+<span id="cb295-2"><a href="writing-data.html#cb295-2" aria-hidden="true" tabindex="-1"></a>aust_subset<span class="ot">&lt;-</span><span class="fu">filter</span>(gapminder, country<span class="sc">==</span><span class="st">&quot;Australia&quot;</span>)</span>
+<span id="cb295-3"><a href="writing-data.html#cb295-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(aust_subset, <span class="at">file=</span><span class="st">&quot;cleaned-data/gapminder-aus.csv&quot;</span>)</span></code></pre></div>
 <p>Let’s open up the file we just created in our <code>cleaned-data</code> directory. When we open it up we can see that we have the correctly formatted data from the Australia observations. But note that there are row numbers associated with the data that aren’t useful to us at this point. To get information on how you can change this behavior, you can consult the function’s documentation:</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="writing-data.html#cb297-1" aria-hidden="true" tabindex="-1"></a>?write.csv</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="writing-data.html#cb296-1" aria-hidden="true" tabindex="-1"></a>?write.csv</span></code></pre></div>
 <p>The documentation will tell you that if you want to get rid of the row names, you can set the row.names argument in <code>write.csv</code> equal to false:</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="writing-data.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(</span>
-<span id="cb298-2"><a href="writing-data.html#cb298-2" aria-hidden="true" tabindex="-1"></a>  aust_subset,</span>
-<span id="cb298-3"><a href="writing-data.html#cb298-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file=</span><span class="st">&quot;cleaned-data/gapminder-aus.csv&quot;</span>,</span>
-<span id="cb298-4"><a href="writing-data.html#cb298-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names=</span><span class="cn">FALSE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="writing-data.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(</span>
+<span id="cb297-2"><a href="writing-data.html#cb297-2" aria-hidden="true" tabindex="-1"></a>  aust_subset,</span>
+<span id="cb297-3"><a href="writing-data.html#cb297-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file=</span><span class="st">&quot;cleaned-data/gapminder-aus.csv&quot;</span>,</span>
+<span id="cb297-4"><a href="writing-data.html#cb297-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names=</span><span class="cn">FALSE</span>) </span></code></pre></div>
 
 </div>
 </div>

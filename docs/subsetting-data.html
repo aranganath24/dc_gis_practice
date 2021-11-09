@@ -210,7 +210,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s start with the workhorse of R: a simple numeric vector.</p>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="subsetting-data.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We&#39;ll define a new vector x</span></span>
 <span id="cb206-2"><a href="subsetting-data.html#cb206-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">5.4</span>, <span class="fl">6.2</span>, <span class="fl">7.1</span>, <span class="fl">4.8</span>, <span class="fl">7.5</span>)</span>
-<span id="cb206-3"><a href="subsetting-data.html#cb206-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>, <span class="st">&#39;e&#39;</span>)</span></code></pre></div>
+<span id="cb206-3"><a href="subsetting-data.html#cb206-3" aria-hidden="true" tabindex="-1"></a><span class="co"># And then name the vector elements</span></span>
+<span id="cb206-4"><a href="subsetting-data.html#cb206-4" aria-hidden="true" tabindex="-1"></a><span class="co"># using the names function</span></span>
+<span id="cb206-5"><a href="subsetting-data.html#cb206-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>, <span class="st">&#39;e&#39;</span>)</span></code></pre></div>
 <p>And then, let’s print out the vector:</p>
 <div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="subsetting-data.html#cb207-1" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##   a   b   c   d   e 
@@ -338,7 +340,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb252-2"><a href="subsetting-data.html#cb252-2" aria-hidden="true" tabindex="-1"></a>gapminder[<span class="dv">3</span>, ]</span></code></pre></div>
 <pre><code>##       country year      pop continent lifeExp gdpPercap below_average
 ## 3 Afghanistan 1962 10267083      Asia  31.997  853.1007          TRUE</code></pre>
-<p>But it’s important to emphase that while a single row will be a data frame, a single column will be extracted as a vector (but you can change that if you’d like by setting <code>drop=FALSE</code>)</p>
+<p>But it’s important to emphase that while a single row will be a data frame, when you extract a single column through indexing it will be extracted as a vector (but you can change that if you’d like by setting <code>drop=FALSE</code>)</p>
 
 </div>
 </div>
