@@ -1,0 +1,394 @@
+# Data Structures
+
+One of R's most powerful features is its ability to deal with tabular data, of the sort that can be displayed in a spreadsheet or CSV file. 
+
+Let's start by downloading and reading in the file ```nordic-data.csv```. We'll save this data as an object named ```nordic```. 
+
+```{r, echo=-1}
+setwd("/Users/adra7980/Documents/carpentries_demo/data")
+nordic<-read.csv("nordic-data.csv") 
+```
+
+Note that I was able to read in the data using just ```nordic-data.csv``` as the argument to the ```read.csv``` function (without any additional information on the file path) since I'm already in the working directory that contains the data. 
+The ```read.table``` is used for reading in tabular data stored in a text file where the columns of data are separated by punctuation characters such as commas (as with CSV files).
+
+Tabs and commas are the most common punctuation characters used to separate or delimit data points in csv files. For convenience, R provides 2 other versions of ```read.table```. These are ```read.csv``` for files where the data are separated with commas and ```read.delim``` for files where the data are separated with tabs. Of these three functions, ```read.csv``` is the most commonly used, and is what we'll use in this tutorial. It's worth noting that if needed, it's possible to override the default punctuation marks for both ```read.csv``` and ```read.delim```. 
+
+We can begin exploring our dataset right away, pulling out columns by specifying them using the ```$``` operator:
+
+Let's start by pulling out the "country" column from the ```nordic``` dataset: 
+```{r}
+nordic$country
+```
+
+And the life expectancy variable ("lifeExp):
+
+```{r}
+nordic$lifeExp
+```
+
+We can also do other operations on the columns. For example, if we discovered that we made a mistake, and that the life expectancy is actually two years higher, we can take the "lifeExp" column and add two to all the observations:
+
+```{r}
+nordic$lifeExp + 2
+```
+
+What if we do something similar, and add up the "lifeExp" and "country" columns from the ```nordic``` dataset? 
+
+```{r, eval=FALSE}
+nordic$lifeExp + nordic$country
+```
+
+This will return an error that complains about a non-numeric argument to a binary operator. It's important to understand what exactly this means in order to successfully analyze data in R. 
+
+## Data Types
+
+You might have guessed that the error arises because the calculation ```77.2``` plus ```Denmark``` is nonsense. If so, you're correct, and already have some intuition for an important concept in programming called data classes. We can use the ```class``` function to ask what class of data something is. For example, to see what class the "lifeExp" variable is, we can type the following:
+
+```{r}
+class(nordic$lifeExp)
+```
+We can see that it's numeric. 
+
+There are 6 main data types of classes: ```numeric```, ```integer```, ```complex```, ```logical```, ```character```, and ```factor```. 
+
+Let's see some more examples.
+
+```{r}
+class(3.14)
+```
+
+```{r}
+class(1L) # The L suffix forces the number to be an integer, since by default R uses float numbers
+```
+
+```{r}
+class(1+1i)
+```
+
+```{r}
+class(TRUE)
+```
+
+```{r}
+class('banana')
+```
+
+```{r}
+class(factor('banana'))
+```
+
+No matter how complicated our analyses become, all data in R is interpreted as a specific data class. That strictness has important consequences; thing won't run as expected or at all if there's a mismatch between the class of data you're working with and what R is expecting. So, it's important to be aware of the class your data is stored in, to avoid any errors or surprises. 
+
+Let's take a look at another example of why it's important to be aware of data classes. Let's say that a user has added new details of life expectancy. This information is in the ```nordic-data-2.csv```. We'll load the new nordic data as ```nordic_2``` and check the class of the data in the ```lifeExp``` column:
+
+```{r, echo=-1}
+setwd("/Users/adra7980/Documents/carpentries_demo/data")
+nordic_2<-read.csv("nordic-data-2.csv")
+class(nordic_2$lifeExp)
+```
+
+Even though the ```lifeExp``` data looks like it's numeric, R is treating it as character data under the hood. If we try to do the same math we did on them before, we'll get into trouble:
+
+```{r, eval=FALSE}
+nordic_2$lifeExp + 2
+```
+Running that code will result in the "non-numeric argument to binary operator" that we encountered before. 
+
+What happened? When R reads a csv file into one of these tables, it insists that everything in a column be the same class; if it can't understand everything in the column as numeric, then nothing gets to be numeric. 
+
+The table that R loaded our nordic data into is something called a dataframe, and it's our first example of something called a data structure, which is essentially a structure that R knows how to build out of the basic data types. 
+
+We can see that it is a dataframe by calling the class() function on it:
+
+```{r}
+class(nordic)
+```
+
+In order to successfully use our data in R, we need to understand what the basic data structures are, and how they behave.
+
+## Vectors and Type Coercion 
+
+To better understand the behavior we've just observed, let's meet another of the data structures: the vector.
+
+```{r}
+my_vector<-vector(length=3)
+my_vector
+```
+
+A vector in R is essentially an ordered list of things, with the special condition that everything in the vector must be of the same basic data type. If you don't choose the data type, it'll default to ```logical```; or, you can declare the empty vector of whatever type you like. For example, if we want to create an empty character vector, we can type the following: 
+
+```{r}
+another_vector<-vector(mode='character', length=3)
+another_vector 
+```
+
+If you want to check if something is a vector, you can use sthe ```str``` function, which is short for "structure":
+
+```{r}
+str(another_vector)
+```
+
+This output indicates the basic data type found in this vector (in this case, ```chr```), as well as the number of things in the vector (or more precisely, the indexes which in this case are ```1:3```), and a few examples of what's actually in the vector (empty character strings, in this case).
+
+If we similarly pass the ```lifeExp``` column of ```nordic``` to the ```str``` function: 
+
+```{r}
+str(nordic$lifeExp)
+```
+
+We see that ```nordic$lifeExp``` is a vector too. In fact, the columns of data we load into R data frames are all vectors, and that's the root cause of why R forces everything in a column to be the same basic data type.
+
+You can also use make vectors with explicit contents using the ```combine``` function. For example, let's say we want to make a vector with the numbers 2,6, and 3:
+
+```{r}
+combine_vector<-c(2,6,3)
+combine_vector
+```
+
+Let's try another one. Given what we've learned so far, what do you think the following will produce?
+
+```{r}
+quiz_vector<-c(2,6,'3')
+```
+
+When we open that object, 
+
+```{r}
+quiz_vector
+```
+
+We see that all of the elements in the vector are strings. This is an example of something called type coercion, which is often the source of surprises that can frustrate your data analysis. Type coercion is an important reason why we need to be aware of the basic data types and how R will interpret them. 
+
+Let's take a look at another example that shows how, when R encounters a mix of types (here numeric and character) to be combined into a single vector, it will force them all to be the same type. Consider, for example, a vector with character and logical elements:
+
+```{r}
+coercion_vector<-c('a', TRUE)
+# When we inspect the vector, we can see that the elements have been coerced into character elements:
+coercion_vector
+```
+
+Let's try another vector, this time with numeric and logical elements:
+
+```{r}
+another_coercion_vector<-c(0, TRUE)
+# When we open this vector, we see both elements coerced to numeric
+another_coercion_vector
+```
+
+The coercion rules go from ```logical``` to ```integer``` to ```numeric``` to ```complex``` to ```character```. In other words, that sequence essentially defines a flowchart that specifies how elements with different classes will be transformed during the coercion process. 
+
+You can try to force coercion against this flow using the ```as.``` functions:
+
+For example, let's start with a character vector:
+
+```{r}
+character_vector_example<-c('0', '2', '4')
+character_vector_example
+```
+
+Now, let's say we want to coerce this character vector into a numeric one. We can do so with the ```as.numeric``` function:
+
+```{r}
+character_coerced_to_numeric<-as.numeric(character_vector_example)
+character_coerced_to_numeric
+```
+
+Alternatively, let's say we want to coerce a numeric vector into a logical one. We can do so with the ```as.logical``` function. 
+
+```{r}
+numeric_coerced_to_logical<-as.logical(character_coerced_to_numeric)
+numeric_coerced_to_logical
+```
+
+The upshot of all this is that some surprising things can happen when R forces one basic data type into another. The central takeaway is that if your data doesn't look like what you thought it would look like, or R throws an unexpected error, type coercion may be the culprit. In order to avoid potentially nasty surprises, you want to make sure that everything is the same type in your vectors and your columns of data frames. 
+
+Continuing on with our discussion of vectors, the combine function ```c()``` will also append things to an existing vector. 
+
+Let's start with a new vector named ```ab_vector``` with the elements ```a``` and ```b```:
+
+```{r}
+ab_vector<-c('a', 'b')
+ab_vector
+```
+
+Now, let's make a new vector and append ```ab_vector``` to it:
+
+```{r}
+combine_example<-c(ab_vector, 'DC')
+combine_example
+```
+
+Similarly, you can also make series of numbers
+
+```{r}
+# This defines a vector with numeric elements from one to ten
+my_series<-1:10
+my_series
+```
+
+We can do the same thing using the ```seq``` function:
+
+```{r}
+seq(10)
+```
+
+And, we can also explicitly define the upper and lower bounds of the sequence, and the units by which the numbers increase or decrease. For example, if we want a sequence starting at 1 and ending at 10 in increments of 0.1 we can type the following: 
+
+```{r}
+seq(1,10, by=0.1)
+```
+
+It's also possible to use functions to ask and answer questions about vectors. 
+
+```{r}
+# Start with a vector of numbers from 1 to 10
+sequence_example<-seq(10)
+# Let's say we want to know the first two elements of this vector. We can type:
+head(sequence_example, n=2)
+# Let's say we want to know the last 4 elements of the vector
+tail(sequence_example, n=4)
+# Let's say we want to know the length of the vector, or in other words the number of elements it has
+length(sequence_example)
+# And finally, let's say we want to know the vector's class:
+class(sequence_example)
+```
+
+It's useful to note that you can give names to elements in your vector:
+```{r}
+# Let's start with a vector of integers from 5 to 8
+my_example<-5:8
+# We can supply names to the my_example vector elements by passing that vector through the "names
+# function and then using a vector of names and the assignment operator to assign the names
+names(my_example)<-c("a", "b", "c", "d")
+my_example
+```
+
+If we want to print the names of the vector elements, we can pass the vector through the names function:
+
+```{r}
+names(my_example)
+```
+
+## Factors
+
+We've already noted that columns in data frames are vectors. For example
+```{r}
+# Examine the lifeExp column
+str(nordic$lifeExp)
+# Or the "year" column
+str(nordic$year)
+```
+
+That makes sense; but what about the country column?
+
+```{r}
+str(nordic$country)
+```
+
+This brings us to another important data structure, which is called a factor. Factors look like character data, but are used to represent categorical information. For example, let's make a vector of strings labeling nordic countries for all the countries in the study:
+
+```{r}
+nordic_countries<-c('Norway', 'Finland', 'Denmark', 'Iceland', 'Sweden')
+nordic_countries
+# Let's examine the vector's structure
+str(nordic_countries)
+```
+
+We can turn a vector into a factor by passing the vector to the ```factor``` function:
+
+```{r}
+categories<-factor(nordic_countries)
+# Confirm that categories is a factor
+class(categories)
+str(categories)
+```
+This output suggests that there are 5 possible categories in the data, but R is doing something that may be surprising: instead of printing out the strings we gave it, we got back a bunch of numbers instead. R has replaced our human-readable categories with numbered indices under the hood; this is necessary, since many statistical calculations utilise such numerical representations for categorical data. 
+
+When doing statistical modeling, it's important to know how these numbered indices correspond to our categorical variables, and to know what the baseline levels are. This is assumed to be the first factor, but by default factors are labeled in alphabetical order. You can explicitly control or change this labeling by specifying the levels. 
+
+For example, 
+
+```{r}
+# Let's start with a new character vector called mydata
+mydata<-c("case", "control", "control", "case")
+# Then let's convert this character vector into a factor, and specify the levels such that "control"
+# is represented by 1, and "case" by 2
+factor_ordering_example<-factor(mydata, levels=c("control", "case"))
+```
+
+Now, let's inspect this object's structure using ```str```:
+
+```{r}
+str(factor_ordering_example)
+```
+
+This output confirms that "control" corresponds to one, and "case" corresponds to 2, as we intended. 
+
+## Lists
+
+Another data structure that's important to be familiar with is the ```list```. A list is in some ways simpler than the other types, since you can put anything you want in it. 
+
+```{r}
+# Make a list with elements of various classes
+list_example<-list(1, "a", TRUE, c(2,6,7))
+list_example
+```
+
+Let's try another one:
+```{r}
+another_list<-list(title="Numbers", numbers=1:10, data=TRUE)
+another_list
+```
+
+We can now use our understanding of lists to better understand how data frames are put together. Let's compare the structure of ```nordic``` and ```another_list```: 
+```{r}
+str(nordic)
+str(another_list)
+```
+
+We can see that the output for these two objects look very similar. This is actually because data frames are lists "under the hood." Data frames are actually a special case of lists where each element (the columns of the data frame) have the same lengths.
+
+In our ```nordic``` example, we have an integer, a double, and a logical variable. As we've seen already, each column of data frame is a vector:
+
+```{r}
+nordic$country
+```
+
+We can also extract through an alternative notation that specifies the column's index:
+
+```{r}
+nordic[,1]
+```
+
+If we want to inspect that column's class:
+
+```{r}
+class(nordic[,1])
+```
+
+And if we want to know the column's structure:
+
+```{r}
+str(nordic[,1])
+```
+
+We can now turn to rows. Each row is an observation of different variables, and itself a data frame, and can therefore be composed of elements of different types:
+
+```{r}
+# Let's inspect the first row
+nordic[1,]
+```
+
+Now, let's see the first row's class and confirm that it's a data frame:
+
+```{r}
+class(nordic[1,])
+```
+
+And for more information, we can inspect its structure:
+
+```{r}
+str(nordic[1,])
+```
+

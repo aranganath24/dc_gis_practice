@@ -1,0 +1,199 @@
+# Subsetting Data 
+
+R has many powerful subset operators. Mastering them will allow you to easily perform complex operations on any kind of dataset. 
+
+There are six different ways we can subset any kind of object, and three different subsetting operators for the different data structures. 
+
+Let's start with the workhorse of R: a simple numeric vector. 
+
+```{r}
+# We'll define a new vector x
+x<-c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x)<-c('a', 'b', 'c', 'd', 'e')
+```
+And then, let's print out the vector:
+
+```{r}
+x
+```
+
+Now that we've created a dummy vector to play with, let's explore how we can access their contents.
+
+## Accessing elements using their indices
+
+To extract elements of a vector, we can use the index number associated with that element. For example, if we wanted to extract the first element of vector x, we can use the following notation: 
+
+```{r}
+x[1]
+```
+
+Let's say we want to extract the fourth element:
+
+```{r}
+x[4]
+```
+
+The square brackets operator is actually a function. For vectors and matrices, it means "get me the nth element." 
+
+We can ask for multiple elements at once. For example, let's say we want the first and third elements: 
+
+```{r}
+x[c(1,3)]
+```
+
+We can also extract slices of the vector using this notation. Let's say we want to extract elements 1 to 4:
+
+```{r}
+x[1:4]
+```
+
+Just to clarify the notation above, the ```:``` operator creates a sequence of numbers from the left elements to the right. 
+
+So, for example: 
+
+```{r}
+1:4
+```
+
+And that's equivalent to the following:
+
+```{r}
+c(1,2,3,4)
+```
+
+We can also ask for the same element multiple times:
+
+```{r}
+x[c(1,1,3)]
+```
+
+If we ask for an index that's beyond the length of the vector, R will return a missing value:
+
+```{r}
+x[6]
+```
+
+This output is a vector of length one containing an NA, whose name is also NA. 
+
+If we ask for the 0th element, we get an empty vector:
+
+```{r}
+x[0]
+```
+
+You've probably already picked up on this, but in R indexing begins with one. This is probably fairly intuitive especially if you're new to programming, but if you're coming to R from another programming language like C or Python where indexing begins with zero, this can take a bit of getting used to. 
+
+## Skipping and removing elements
+
+If we use a negative number as the index of a vector, R will return every element except for the one specified. So, for example, if we use an index number of negative 2, R will omit element B from the output. 
+
+```{r}
+x[-2]
+```
+
+It's also possible to skip multiple elements. For example, let's say we want to omit the first and fifth elements:
+
+```{r}
+x[c(-1,-5)]
+```
+
+One thing that can sometimes trip people up when trying to skip slices of a vector is the order of operations. For example, if we want to omit elements one through three in x, it might make sense to write the following:
+
+```{r, eval=FALSE}
+x[-1:3]
+```
+
+This gives a somewhat cryptic error. What's happening is that R is reading the ```-1:3``` as a vector with integers ranging from -1 to 3. If we want to omit elements 1 through 3 in x, we have to wrap the ```1:3``` in brackets, so that the minus operator applies to the result:
+
+```{r}
+x[-(1:3)]
+```
+
+To remove elements from a vector, we need to assign the result back into the variable. So, let's say we want to omit element D, and make this deletion permanent in x:
+
+```{r}
+x<-x[-4]
+x
+```
+
+## Subsetting by name
+
+We can extract elements by using their names, instead of extracting by index. 
+
+```{r}
+# Let's name a vector on the fly
+x<-c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5)
+# extract a and c by name
+x[c("a", "c")]
+```
+
+This is usually a much more reliable way to subset objects: the position of various elements can often change when chaining together subsetting operations, but the names will always remain the same!
+
+## Subsetting through other logical operations 
+
+We can also use any logical vector to subset. Let's say we want to extract the third and fifth elements of x. We can extract these elements by passing a vector in which the third and fifth elements are set to "TRUE" and everything else is set to "FALSE":
+
+```{r}
+x[c(FALSE, FALSE, TRUE, FALSE, TRUE)]
+```
+
+Because comparison vectors (i.e. greater than, less than, equal to) evaluate to logical vectors, we can also use them to concisely subset vectors. For example, subsetting with "x greater than 7" gives us the same output as before:
+
+```{r}
+x[x>7]
+```
+
+Breaking this down a bit, what's happening is that the statement first evaluates ```x>7```, which generates a corresponding logical vector ```c(FALSE, FALSE, TRUE, FALSE, TRUE)```, and then selects the elements of x corresponding to the ```TRUE``` values. 
+
+We can use a comparison vector to mimic the previous method of indexing by name 
+
+```{r}
+# remember you have to use == rather than = for comparisons
+x[names(x)=="a"]
+```
+
+## Data frames 
+
+When extracting sections of data frames, recall that data frames are lists under the hood, so similar rules to the ones we've already discussed apply. 
+
+But the big difference is that data frames are two dimensional objects, so some additional considerations apply. 
+
+Using brackets with one argument to index will act the same way as for lists, where each list element corresponds to a column. The resulting object will be a data frame. 
+
+For example, let's pull out the third column in gapminder as its own data frame:
+
+```{r}
+head(gapminder[3])
+```
+
+Similarly, double brackets will extract a single column as a vector:
+
+```{r}
+head(gapminder[["lifeExp"]])
+```
+
+The dollar-sign operator also provides a convenient way to extract columns by name:
+
+```{r}
+# extracts year column
+head(gapminder$year)
+```
+
+To select specific data frame rows and or columns, you can enclose two arguments in brackets. For example, if we want to extract the first three rows of gapminder, we supply ```1:3``` as the first argument, and leave the second argument blank (which indicates we want all the columns):
+
+```{r}
+gapminder[1:3, ]
+```
+
+If we subset a single row, the result will be a data frame (since the elements are mixed types)
+
+```{r}
+# Extracts third row of gapminder
+gapminder[3, ]
+```
+
+But it's important to emphase that while a single row will be a data frame, a single column will be extracted as a vector (but you can change that if you'd like by setting ```drop=FALSE```)
+
+
+
+

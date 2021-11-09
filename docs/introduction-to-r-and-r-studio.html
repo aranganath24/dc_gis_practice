@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Introduction to R and R Studio | Introduction to R for Geospatial Data</title>
+  <meta name="description" content="2 Introduction to R and R Studio | Introduction to R for Geospatial Data" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Introduction to R and R Studio | Introduction to R for Geospatial Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Introduction to R and R Studio | Introduction to R for Geospatial Data" />
+  
+  
+  
+
+<meta name="author" content="Aditya Ranganath" />
+
+
+<meta name="date" content="2021-11-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="project-management-with-r-studio.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R-Geospatial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r-and-r-studio.html"><a href="introduction-to-r-and-r-studio.html"><i class="fa fa-check"></i><b>2</b> Introduction to R and R Studio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-and-r-studio.html"><a href="introduction-to-r-and-r-studio.html#introduction-to-r"><i class="fa fa-check"></i><b>2.1</b> Introduction to R</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r-and-r-studio.html"><a href="introduction-to-r-and-r-studio.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.2</b> Using R as a calculator</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r-and-r-studio.html"><a href="introduction-to-r-and-r-studio.html#comparing-things"><i class="fa fa-check"></i><b>2.3</b> Comparing things</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r-and-r-studio.html"><a href="introduction-to-r-and-r-studio.html#variables-and-assignment"><i class="fa fa-check"></i><b>2.4</b> Variables and assignment</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r-and-r-studio.html"><a href="introduction-to-r-and-r-studio.html#installing-packages"><i class="fa fa-check"></i><b>2.5</b> Installing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="project-management-with-r-studio.html"><a href="project-management-with-r-studio.html"><i class="fa fa-check"></i><b>3</b> Project Management With R Studio</a></li>
+<li class="chapter" data-level="4" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>4</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-structures.html"><a href="data-structures.html#data-types"><i class="fa fa-check"></i><b>4.1</b> Data Types</a></li>
+<li class="chapter" data-level="4.2" data-path="data-structures.html"><a href="data-structures.html#vectors-and-type-coercion"><i class="fa fa-check"></i><b>4.2</b> Vectors and Type Coercion</a></li>
+<li class="chapter" data-level="4.3" data-path="data-structures.html"><a href="data-structures.html#factors"><i class="fa fa-check"></i><b>4.3</b> Factors</a></li>
+<li class="chapter" data-level="4.4" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>4.4</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploring-data-frames.html"><a href="exploring-data-frames.html"><i class="fa fa-check"></i><b>5</b> Exploring Data Frames</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploring-data-frames.html"><a href="exploring-data-frames.html#realistic-example"><i class="fa fa-check"></i><b>5.1</b> Realistic Example</a></li>
+<li class="chapter" data-level="5.2" data-path="exploring-data-frames.html"><a href="exploring-data-frames.html#adding-columns-and-rows-in-data-frames"><i class="fa fa-check"></i><b>5.2</b> Adding columns and rows in data frames</a></li>
+<li class="chapter" data-level="5.3" data-path="exploring-data-frames.html"><a href="exploring-data-frames.html#factors-1"><i class="fa fa-check"></i><b>5.3</b> Factors</a></li>
+<li class="chapter" data-level="5.4" data-path="exploring-data-frames.html"><a href="exploring-data-frames.html#appending-to-a-data-frame"><i class="fa fa-check"></i><b>5.4</b> Appending to a data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="subsetting-data.html"><a href="subsetting-data.html"><i class="fa fa-check"></i><b>6</b> Subsetting Data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="subsetting-data.html"><a href="subsetting-data.html#accessing-elements-using-their-indices"><i class="fa fa-check"></i><b>6.1</b> Accessing elements using their indices</a></li>
+<li class="chapter" data-level="6.2" data-path="subsetting-data.html"><a href="subsetting-data.html#skipping-and-removing-elements"><i class="fa fa-check"></i><b>6.2</b> Skipping and removing elements</a></li>
+<li class="chapter" data-level="6.3" data-path="subsetting-data.html"><a href="subsetting-data.html#subsetting-by-name"><i class="fa fa-check"></i><b>6.3</b> Subsetting by name</a></li>
+<li class="chapter" data-level="6.4" data-path="subsetting-data.html"><a href="subsetting-data.html#subsetting-through-other-logical-operations"><i class="fa fa-check"></i><b>6.4</b> Subsetting through other logical operations</a></li>
+<li class="chapter" data-level="6.5" data-path="subsetting-data.html"><a href="subsetting-data.html#data-frames"><i class="fa fa-check"></i><b>6.5</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="dataframe-manipulation-with-dplyr.html"><a href="dataframe-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>7</b> Dataframe Manipulation with dplyr</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dataframe-manipulation-with-dplyr.html"><a href="dataframe-manipulation-with-dplyr.html#the-dplyr-package"><i class="fa fa-check"></i><b>7.1</b> The dplyr package</a></li>
+<li class="chapter" data-level="7.2" data-path="dataframe-manipulation-with-dplyr.html"><a href="dataframe-manipulation-with-dplyr.html#using-select"><i class="fa fa-check"></i><b>7.2</b> Using <code>select()</code></a></li>
+<li class="chapter" data-level="7.3" data-path="dataframe-manipulation-with-dplyr.html"><a href="dataframe-manipulation-with-dplyr.html#using-filter"><i class="fa fa-check"></i><b>7.3</b> Using <code>filter</code></a></li>
+<li class="chapter" data-level="7.4" data-path="dataframe-manipulation-with-dplyr.html"><a href="dataframe-manipulation-with-dplyr.html#using-group_by-and-summarize"><i class="fa fa-check"></i><b>7.4</b> Using <code>group_by()</code> and <code>summarize()</code></a></li>
+<li class="chapter" data-level="7.5" data-path="dataframe-manipulation-with-dplyr.html"><a href="dataframe-manipulation-with-dplyr.html#using-summarize"><i class="fa fa-check"></i><b>7.5</b> Using <code>summarize</code></a></li>
+<li class="chapter" data-level="7.6" data-path="dataframe-manipulation-with-dplyr.html"><a href="dataframe-manipulation-with-dplyr.html#count-and-n"><i class="fa fa-check"></i><b>7.6</b> <code>count()</code> and <code>n()</code></a></li>
+<li class="chapter" data-level="7.7" data-path="dataframe-manipulation-with-dplyr.html"><a href="dataframe-manipulation-with-dplyr.html#using-mutate"><i class="fa fa-check"></i><b>7.7</b> Using <code>mutate()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="introduction-to-visualization.html"><a href="introduction-to-visualization.html"><i class="fa fa-check"></i><b>8</b> Introduction to Visualization</a></li>
+<li class="chapter" data-level="9" data-path="writing-data.html"><a href="writing-data.html"><i class="fa fa-check"></i><b>9</b> Writing Data</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="writing-data.html"><a href="writing-data.html#saving-plots"><i class="fa fa-check"></i><b>9.1</b> Saving plots</a></li>
+<li class="chapter" data-level="9.2" data-path="writing-data.html"><a href="writing-data.html#writing-data-1"><i class="fa fa-check"></i><b>9.2</b> Writing data</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to R for Geospatial Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-r-and-r-studio" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Introduction to R and R Studio</h1>
+<div id="introduction-to-r" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction to R</h2>
+<p>Much of your time in R will be spent in the R interactive console. This is where you will run all of your code, and can be a useful environment to try out ideas before adding them to an R script file. This console in RStudio is the same as the one you would get if you typed in R in your command-line environment.</p>
+<p>The first thing you will see in the R interactive session is a bunch of information, followed by a “&gt;” and a blinking cursor. In many ways this is similar to the shell environment you learned about during the shell lessons: it operates on the same idea of a “Read, evaluate, print loop”: you type in commands, R tries to execute them, and then returns a result.</p>
+</div>
+<div id="using-r-as-a-calculator" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Using R as a calculator</h2>
+<p>The simplest thing you could do with R is do arithmetic:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction-to-r-and-r-studio.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">100</span></span></code></pre></div>
+<pre><code>## [1] 101</code></pre>
+<p>R will print out the answer with a preceding <code>[1]</code>. Don’t worry about this for now, we’ll explain that later. For now, think of it as indicating output.</p>
+<p>As with bash, if you type an incomplete command, R will wait for you to complete it:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction-to-r-and-r-studio.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span></span></code></pre></div>
+<p>Any time you hit return and the R session show a <code>+</code> instead of a <code>&gt;</code> it means it’s waiting for you to complete the command. If you want to cancel a command, you can simply hit <code>ESC</code> and RStudio will give you back the “&gt;” prompt.</p>
+<p>When using R as a calculator, the order of operations is the same as you would have learned back in school.</p>
+<p>From highest to lowest precedence:</p>
+<p>Parentheses: (, )
+Exponents: ^ or **
+Divide: /
+Multiply: *
+Add: +
+Subtract: -</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="introduction-to-r-and-r-studio.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">+</span><span class="dv">5</span><span class="sc">*</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 13</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction-to-r-and-r-studio.html#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span><span class="sc">+</span><span class="dv">5</span>)<span class="sc">*</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 16</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="introduction-to-r-and-r-studio.html#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span> <span class="sc">+</span> (<span class="dv">5</span> <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">^</span> <span class="dv">2</span>))) <span class="co"># hard to read</span></span></code></pre></div>
+<pre><code>## [1] 23</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction-to-r-and-r-studio.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> <span class="dv">2</span> <span class="sc">^</span> <span class="dv">2</span>       <span class="co"># clear, if you remember the rules</span></span></code></pre></div>
+<pre><code>## [1] 23</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="introduction-to-r-and-r-studio.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">^</span> <span class="dv">2</span>)     <span class="co"># if you forget some rules, this might help</span></span></code></pre></div>
+<pre><code>## [1] 23</code></pre>
+<p>The text after each line of code is called a “comment”. Anything that follows after the hash (or octothorpe) symbol # is ignored by R when it executes code.</p>
+<p>Really small or large numbers get a scientific notation:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introduction-to-r-and-r-studio.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">/</span><span class="dv">10000</span></span></code></pre></div>
+<pre><code>## [1] 2e-04</code></pre>
+<p>This is shorthand for "multiplied by <code>10^XX</code>. So <code>2e-4</code> is shorthand for <code>2*10^(-4)</code>.</p>
+<p>You can write numbers in scientific notation too:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="introduction-to-r-and-r-studio.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5e3</span></span></code></pre></div>
+<pre><code>## [1] 5000</code></pre>
+<p>Don’t worry about trying to remember every function in R. You can look them up on Google, or if you can remember the start of the function’s name, use the tab completion in RStudio.</p>
+<p>This is one advantage that RStudio has over R on its own, it has auto-completion abilities that allow you to more easily look up functions, their arguments, and the values that they take.</p>
+<p>Typing a ? before the name of a command will open the help page for that command. As well as providing a detailed description of the command and how it works, scrolling to the bottom of the help page will usually show a collection of code examples which illustrate command usage. We’ll go through an example later.</p>
+</div>
+<div id="comparing-things" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Comparing things</h2>
+<p>We can also do comparison in R:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="introduction-to-r-and-r-studio.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">==</span><span class="dv">1</span> <span class="co"># equality; note two equals signs, read as &#39;is equal to&#39;</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="introduction-to-r-and-r-studio.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">!=</span> <span class="dv">2</span> <span class="co"># inequality (read as &#39;is not equal to&#39;)</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="introduction-to-r-and-r-studio.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">&lt;</span><span class="dv">2</span> <span class="co"># less than</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="introduction-to-r-and-r-studio.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">&lt;=</span><span class="dv">1</span> <span class="co"># less than or equal to</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="introduction-to-r-and-r-studio.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">&gt;</span><span class="dv">0</span> <span class="co"># greater than</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="introduction-to-r-and-r-studio.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">9</span> <span class="co"># greater than or equal to</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="variables-and-assignment" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Variables and assignment</h2>
+<p>We can store values in variables using the assignment operator <code>&lt;-</code> like this:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="introduction-to-r-and-r-studio.html#cb30-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">40</span></span></code></pre></div>
+<p>This operation assigned the value 1/40 to the variable x. Notice that assignment does not print a value. Instead, we stored it for later in the variable x, which is now associated with 1/40.</p>
+<p>You can confirm this by printing x, which returns the value 0.025:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="introduction-to-r-and-r-studio.html#cb31-1" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] 0.025</code></pre>
+<p>More More precisely, the stored value is a decimal approximation of this fraction called a floating point number.</p>
+<p>Look for the Environment tab in one of the panes of RStudio, and you will see that x and its value have appeared. Our variable x can be used in place of a number in any calculation that expects a number:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="introduction-to-r-and-r-studio.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(x)</span></code></pre></div>
+<pre><code>## [1] -3.688879</code></pre>
+<p>Note also that variables can be reassigned:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction-to-r-and-r-studio.html#cb35-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="dv">100</span></span></code></pre></div>
+<p>x used to contain the value 0.025 and and now it has the value 100.</p>
+<p>Assignment values can contain the variable being assigned to:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction-to-r-and-r-studio.html#cb36-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">1</span> <span class="co">#notice how RStudio updates its description of x on the top right tab</span></span>
+<span id="cb36-2"><a href="introduction-to-r-and-r-studio.html#cb36-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<p>The right hand side of the assignment can be any valid R expression. The right hand side is fully evaluated before the assignment occurs.</p>
+<p>Variable names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces at all. Different people use different conventions for long variable names, these include</p>
+<p>periods.between.words
+underscores_between_words
+camelCaseToSeparateWords
+What you use is up to you, but be consistent.</p>
+<p>It is also possible to use the = operator for assignment:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="introduction-to-r-and-r-studio.html#cb37-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">40</span></span></code></pre></div>
+<p>But this is much less common among R users. The most important thing is to be consistent with the operator you use. There are occasionally places where it is less confusing to use &lt;- than =, and it is the most common symbol used in the community. So the recommendation is to use &lt;-.</p>
+</div>
+<div id="installing-packages" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Installing packages</h2>
+<p>We can use R as a calculator to do mathematical operations (e.g., addition, subtraction, multiplication, division), as we did above. However, we can also use R to carry out more complicated analyses, make visualizations, and much more. In later episodes, we’ll use R to do some data wrangling, plotting, and saving of reformatted data.</p>
+<p>R coders around the world have developed collections of R code to accomplish themed tasks (e.g., data wrangling). These collections of R code are known as R packages. It is also important to note that R packages refer to code that is not automatically downloaded when we install R on our computer. Therefore, we’ll have to install each R package that we want to use (more on this below).</p>
+<p>We will practice using the dplyr package to wrangle our datasets in episode 6 and will also practice using the ggplot2 package to plot our data in episode 7. To give an example, the dplyr package includes code for a function called filter(). A function is something that takes input(s) does some internal operations and produces output(s). For the filter() function, the inputs are a dataset and a logical statement (i.e., when data value is greater than or equal to 100) and the output is data within the dataset that has a value greater than or equal to 100.</p>
+<p>There are two main ways to install packages in R:</p>
+<ol style="list-style-type: decimal">
+<li><p>If you are using RStudio, we can go to Tools &gt; Install Packages… and then search for the name of the R package we need and click Install.</p></li>
+<li><p>We can use the <code>install.packages( )</code> function. We can do this to install the dplyr R package.</p></li>
+</ol>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="introduction-to-r-and-r-studio.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
+<p>It’s important to note that we only need to install the R package on our computer once</p>
+<p>Now that we’ve installed the R package, we’re ready to use it! To use the R package, we need to “load” it into our R session. We can think of “loading” an R packages as telling R that we’re ready to use the package we just installed. It’s important to note that while we only have to install the package once, we’ll have to load the package each time we open R (or RStudio).</p>
+<p>To load an R package, we use the library( ) function. We can load the dplyr package like this:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="introduction-to-r-and-r-studio.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="project-management-with-r-studio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aranganath24/dc_gis_practice/edit/master/02-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/aranganath24/dc_gis_practice/blob/master/02-intro.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

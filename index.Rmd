@@ -1,9 +1,14 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
+title: "Introduction to R for Geospatial Data"
+author: "Aditya Ranganath"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
+# Preface
 
-# Down the rabbit-hole
+This lesson introduces R for users interested in geospatial data. It is taken from the Data Carpentry lesson available [here](https://datacarpentry.org/r-intro-geospatial/) 
+
+
+
+
 
